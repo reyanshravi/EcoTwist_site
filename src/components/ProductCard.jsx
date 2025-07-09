@@ -4,13 +4,15 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Heart, Leaf, Star } from "lucide-react";
-import { memo } from "react";
+import { memo, useEffect } from "react";
 import Image from "next/image";
 
 const ProductCard = ({ product, addToCart }) => {
   const discount = product.originalPrice
     ? Math.round((1 - product.price / product.originalPrice) * 100)
     : 0;
+
+ 
 
   return (
     <div className="group rounded-2xl overflow-hidden border border-gray-200 bg-white shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col w-80 mx-auto">
@@ -66,7 +68,10 @@ const ProductCard = ({ product, addToCart }) => {
         </div>
 
         {/* Product Name */}
-        <Link href={`/product/${product.id}`} className="focus:outline-none focus:ring-2 focus:ring-emerald-500 rounded-md">
+        <Link
+          href={`/product/${product.id}`}
+          className="focus:outline-none focus:ring-2 focus:ring-emerald-500 rounded-md"
+        >
           <h3 className="text-lg font-semibold text-gray-900 hover:text-emerald-600 transition-colors min-h-[2.5rem] leading-tight line-clamp-2">
             {product.name}
           </h3>
@@ -74,7 +79,10 @@ const ProductCard = ({ product, addToCart }) => {
 
         {/* Rating */}
         <div className="flex items-center gap-2">
-          <div className="flex text-amber-400" aria-label={`Rating ${product.rating.toFixed(1)} out of 5`}>
+          <div
+            className="flex text-amber-400"
+            aria-label={`Rating ${product.rating.toFixed(1)} out of 5`}
+          >
             {[...Array(5)].map((_, i) => (
               <Star
                 key={i}
@@ -106,13 +114,13 @@ const ProductCard = ({ product, addToCart }) => {
         </div>
 
         {/* Add to Cart Button */}
-        <Button
-          onClick={() => addToCart(product)}
+        {/* <button
+          // onClick={() => addToCart(product)}
           className="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-semibold rounded-lg py-2.5 transition-all duration-200 hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-emerald-500 shadow-sm"
-          aria-label={`Add ${product.name} to cart`}
+          // aria-label={`Add ${product.name} to cart`}
         >
           Add to Cart
-        </Button>
+        </button> */}
       </div>
     </div>
   );
