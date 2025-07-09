@@ -123,16 +123,22 @@ export default function Home({ addToCart }) {
 
           {/* Call to Action Buttons */}
           <div className="mt-10 flex flex-col sm:flex-row justify-center gap-4">
-            <Link href="/shop" passHref>
-              <Button className="px-8 py-4 text-lg font-medium bg-white/15 text-forest hover:bg-forest-100 transition-all duration-300 shadow-xl hover:scale-105">
+            <Button
+              asChild // Use asChild here
+              className="px-8 py-4 text-lg font-medium bg-white/15 text-forest hover:bg-forest-100 transition-all duration-300 shadow-xl hover:scale-105"
+            >
+              <Link href="/shop">
                 Explore Products
-              </Button>
-            </Link>
-            <Link href="/about" passHref>
-              <Button className="px-8 py-4 text-lg font-medium bg-white/15 text-forest hover:bg-forest-100 transition-all duration-300 shadow-xl hover:scale-105">
+              </Link>
+            </Button>
+            <Button
+              asChild // Use asChild here
+              className="px-8 py-4 text-lg font-medium bg-white/15 text-forest hover:bg-forest-100 transition-all duration-300 shadow-xl hover:scale-105"
+            >
+              <Link href="/about">
                 Our Mission
-              </Button>
-            </Link>
+              </Link>
+            </Button>
           </div>
         </div>
       </section>
@@ -248,12 +254,15 @@ export default function Home({ addToCart }) {
               </p>
             </div>
             <div className="flex justify-center mt-8">
-              <Link href="/shop">
-                <Button className=" text-lg px-8 py-3 cursor-pointer rounded-full font-medium inline-flex items-center gap-2 hover:gap-3 transition-all duration-300">
+              <Button
+                asChild
+                className=" text-lg px-8 py-3 cursor-pointer rounded-full font-medium inline-flex items-center gap-2 hover:gap-3 transition-all duration-300"
+              >
+                <Link href="/shop">
                   View All
                   <MoveRight className="w-5 h-5" />
-                </Button>
-              </Link>
+                </Link>
+              </Button>
             </div>
           </div>
 
@@ -367,7 +376,10 @@ export default function Home({ addToCart }) {
                   Each product is a collaboration between our in-house designers and skilled artisans, creating livelihoods while helping brands gift meaningfully and consciously.
                 </p>
 
-                <Button className="bg-forest hover:bg-green-700/10 text-black px-8 py-3 rounded-full text-base font-semibold shadow-md transition-all cursor-pointer inline-flex items-center gap-2">
+                <Button
+                  asChild // This tells the Button component to render as its child (the Link)
+                  className="bg-forest hover:bg-green-700/10 text-black px-8 py-3 rounded-full text-base font-semibold shadow-md transition-all cursor-pointer inline-flex items-center gap-2"
+                >
                   <Link href="/about">
                     Learn More About Us
                     <ArrowRight className="w-5 h-5" />
@@ -456,7 +468,7 @@ export default function Home({ addToCart }) {
           </p>
 
           {/* Input & Button */}
-          <form className="flex flex-col sm:flex-row items-center justify-center gap-4 max-w-xl mx-auto w-full">
+          {/* <form className="flex flex-col sm:flex-row items-center justify-center gap-4 max-w-xl mx-auto w-full">
             <input
               type="email"
               placeholder="Enter your email"
@@ -468,7 +480,7 @@ export default function Home({ addToCart }) {
             >
               Subscribe
             </Button>
-          </form>
+          </form> */}
         </div>
       </section>
 

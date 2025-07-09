@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -12,7 +11,7 @@ import {
 } from "@/components/ui/card";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Mail, Lock, LogIn, ArrowRightCircle } from "lucide-react"; // Lucide Icons
+import { Mail, Lock, LogIn, ArrowRightCircle, HomeIcon } from "lucide-react";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -35,6 +34,27 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center py-12 px-4 relative">
+     <Link
+        href="/"
+        className="absolute top-16 left-20 bg-white/10 text-white backdrop-blur-xl p-4 rounded-full shadow-lg 
+             hover:bg-white/20 transition-all duration-300 cursor-pointer group 
+             sm:top-12 sm:left-6"
+        aria-label="Home"
+        role="button"
+      >
+        <HomeIcon className="w-6 h-6" />
+
+        {/* Tooltip */}
+        <span
+          className="absolute left-full ml-2 top-1/2 -translate-y-1/2 
+                   whitespace-nowrap bg-black text-white text-xs rounded px-2 py-1 opacity-0 
+                   group-hover:opacity-100 transition-opacity duration-300 pointer-events-none
+                   sm:hidden"
+        >
+          Home
+        </span>
+      </Link>
+
       {/* Background Image + Overlay */}
       <div className="absolute inset-0 -z-10">
         <img
@@ -163,7 +183,7 @@ export default function LoginPage() {
 
             <div className="mt-4 text-center">
               <Link
-                href="/register"
+                href="/auth/register"
                 className="flex items-center justify-center gap-1 text-forest hover:text-forest-600 font-medium transition"
               >
                 Create new account

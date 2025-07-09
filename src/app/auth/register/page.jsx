@@ -19,6 +19,7 @@ import {
   ShieldCheck,
   UserPlus,
   ArrowRightCircle,
+  HomeIcon,
 } from "lucide-react";
 
 export default function SignupPage() {
@@ -60,6 +61,27 @@ export default function SignupPage() {
 
   return (
     <div className="py-12 px-4 flex justify-center items-center min-h-screen relative">
+      <Link
+        href="/"
+        className="absolute top-16 left-20 bg-white/10 text-white backdrop-blur-xl p-4 rounded-full shadow-lg 
+             hover:bg-white/20 transition-all duration-300 cursor-pointer group 
+             sm:top-12 sm:left-6"
+        aria-label="Home"
+        role="button"
+      >
+        <HomeIcon className="w-6 h-6" />
+
+        {/* Tooltip */}
+        <span
+          className="absolute left-full ml-2 top-1/2 -translate-y-1/2 
+                   whitespace-nowrap bg-black text-white text-xs rounded px-2 py-1 opacity-0 
+                   group-hover:opacity-100 transition-opacity duration-300 pointer-events-none
+                   sm:hidden"
+        >
+          Home
+        </span>
+      </Link>
+
       {/* Background image + overlay */}
       <div className="absolute inset-0 -z-10">
         <img
@@ -170,7 +192,7 @@ export default function SignupPage() {
           <div className="mt-6 text-center">
             <span className="text-slate-500">Already have an account? </span>
             <Link
-              href="/login"
+              href="/auth/login"
               className="flex justify-center items-center gap-1 text-forest hover:text-forest-600 font-medium transition"
             >
               Sign in
