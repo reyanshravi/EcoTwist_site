@@ -1,12 +1,13 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { Menu, Search, ShoppingBag, X, User, LogIn } from "lucide-react";
+import { Menu, Search, ShoppingCart, X, User, LogIn } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import debounce from "lodash.debounce";
+import Sidebar from "./Sidebar";
 
 export default function Header({ cartItemsCount = 0, onCartClick }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -52,7 +53,7 @@ export default function Header({ cartItemsCount = 0, onCartClick }) {
 
   const navItems = [
     { name: "Home", path: "/" },
-    { name: "Shop", path: "/shop" },
+    { name: "Products", path: "/product" },
     { name: "About", path: "/about" },
     { name: "Blog", path: "/blog" },
     { name: "Contact", path: "/contact" },
@@ -100,7 +101,7 @@ export default function Header({ cartItemsCount = 0, onCartClick }) {
           {/* Actions */}
           <div className="flex items-center gap-4">
             {/* Search */}
-            <Button
+            {/* <Button
               variant="ghost"
               size="sm"
               className="p-2 rounded-md hidden sm:flex hover:bg-gray-100"
@@ -108,10 +109,26 @@ export default function Header({ cartItemsCount = 0, onCartClick }) {
               aria-label="Search"
             >
               <Search className="h-5 w-5 text-gray-600" />
-            </Button>
+            </Button> */}
+            {/* <Sheet>
+              <SheetTrigger className="p-2 rounded-md hidden sm:flex hover:bg-gray-100">
+                {" "}
+                <Search className="h-5 w-5 text-gray-600" />
+              </SheetTrigger>
+              <SheetContent>
+                <SheetHeader>
+                  <SheetTitle>Are you absolutely sure?</SheetTitle>
+                  <SheetDescription>
+                    This action cannot be undone. This will permanently delete
+                    your account and remove your data from our servers.
+                  </SheetDescription>
+                </SheetHeader>
+              </SheetContent>
+            </Sheet> */}
+            <Sidebar />
 
             {/* User / Login */}
-            {isAuthenticated ? (
+            {/* {isAuthenticated ? (
               <Link href="/dashboard">
                 <Button
                   variant="ghost"
@@ -131,10 +148,22 @@ export default function Header({ cartItemsCount = 0, onCartClick }) {
                   <LogIn className="h-5 w-5 text-gray-600" />
                 </Button>
               </Link>
-            )}
+            )} */}
+
+            {/* user */}
+            <Link href="#">
+              <Button
+                variant="ghost"
+                className="p-2 rounded-md sm:flex items-center justify-center hover:bg-gray-100 transition-colors"
+              >
+                <User className="h-5 w-5 text-gray-600" />
+              </Button>
+            </Link>
+
+            <div className="border bg-gray-300 h-10"></div>
 
             {/* Wishlist */}
-            <Link href="/wishlist">
+            {/* <Link href="/wishlist">
               <Button
                 variant="ghost"
                 size="sm"
@@ -142,17 +171,17 @@ export default function Header({ cartItemsCount = 0, onCartClick }) {
               >
                 <span className="text-red-500 text-lg">❤</span>
               </Button>
-            </Link>
+            </Link> */}
 
             {/* Cart */}
             <Link href="/cart">
               <Button
-                variant="ghost"
-                size="sm"
-                className="relative p-2 hover:bg-gray-100"
+                variant="outline"
+                className="relative"
                 onClick={onCartClick}
               >
-                <ShoppingBag className="h-5 w-5 text-gray-600" />
+                Cart
+                <ShoppingCart className="w-4 h-4 mr-2" />
                 {cartItemsCount > 0 && (
                   <Badge
                     className="absolute -top-1 -right-1 h-5 w-5 p-0 text-xs bg-forest text-white animate-pulse border-none"

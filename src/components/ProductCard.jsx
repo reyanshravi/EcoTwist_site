@@ -7,6 +7,7 @@ import { Heart, Leaf, Star } from "lucide-react";
 import { memo, useEffect } from "react";
 import Image from "next/image";
 
+
 const ProductCard = ({ product, addToCart }) => {
   const discount = product.originalPrice
     ? Math.round((1 - product.price / product.originalPrice) * 100)
@@ -81,7 +82,7 @@ const ProductCard = ({ product, addToCart }) => {
         <div className="flex items-center gap-2">
           <div
             className="flex text-amber-400"
-            aria-label={`Rating ${product.rating.toFixed(1)} out of 5`}
+            // aria-label={`Rating ${product.rating.toFixed(1)} out of 5`}
           >
             {[...Array(5)].map((_, i) => (
               <Star
@@ -97,7 +98,7 @@ const ProductCard = ({ product, addToCart }) => {
             ))}
           </div>
           <span className="text-xs text-gray-500 font-medium">
-            ({product.rating.toFixed(1)})
+            {/* ({product.rating.toFixed(1)}) */}
           </span>
         </div>
 

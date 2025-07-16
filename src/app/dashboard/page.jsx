@@ -1,12 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@radix-ui/react-tooltip";
 
 import {
   User,
@@ -23,7 +17,7 @@ import {
   Sun,
   Leaf,
 } from "lucide-react";
-import { useCart } from "@/hooks/cardContext";
+import { useCart } from "@/hooks/cartContext";
 import { toast } from "react-hot-toast";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";

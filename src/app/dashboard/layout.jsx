@@ -1,4 +1,4 @@
-import { CartProvider } from "@/hooks/cardContext";
+import { CartProvider } from "@/hooks/cartContext";
 
 export default function DashboardLayout({ children }) {
   return (
