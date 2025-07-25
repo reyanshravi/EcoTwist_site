@@ -8,6 +8,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import debounce from "lodash.debounce";
 import Sidebar from "./Sidebar";
+import { useCart } from "@/contexts/CartContext";
 
 export default function Header({ cartItemsCount = 0, onCartClick }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -16,6 +17,7 @@ export default function Header({ cartItemsCount = 0, onCartClick }) {
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
   const lastScrollY = useRef(0);
+  const { getTotalItems } = useCart();
 
   // Read from localStorage on mount
   // useEffect(() => {
@@ -53,7 +55,7 @@ export default function Header({ cartItemsCount = 0, onCartClick }) {
 
   const navItems = [
     { name: "Home", path: "/" },
-    { name: "Products", path: "/product" },
+    { name: "Products", path: "/products" },
     { name: "About", path: "/about" },
     { name: "Blog", path: "/blog" },
     { name: "Contact", path: "/contact" },
@@ -175,19 +177,12 @@ export default function Header({ cartItemsCount = 0, onCartClick }) {
 
             {/* Cart */}
             <Link href="/cart">
-              <Button
-                variant="outline"
-                className="relative"
-                onClick={onCartClick}
-              >
-                Cart
+              <Button variant="outline" className="relative">
                 <ShoppingCart className="w-4 h-4 mr-2" />
-                {cartItemsCount > 0 && (
-                  <Badge
-                    className="absolute -top-1 -right-1 h-5 w-5 p-0 text-xs bg-forest text-white animate-pulse border-none"
-                    aria-label={`${cartItemsCount} items in cart`}
-                  >
-                    {cartItemsCount}
+                Cart
+                {getTotalItems() > 0 && (
+                  <Badge className="absolute -top-2 -right-2 w-5 h-5 p-0 text-xs bg-green-500">
+                    {getTotalItems()}
                   </Badge>
                 )}
               </Button>
