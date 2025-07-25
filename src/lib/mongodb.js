@@ -4,7 +4,7 @@ dotenv.config();
 
 
 // Get the MongoDB URI from environment variables
-const MONGODB_URI = process.env.MONGODB_URI 
+const MONGODB_URI = process.env.MONGODB_URI
 
 if (!MONGODB_URI) {
   throw new Error('Please define the MONGODB_URI environment variable in .env');
@@ -15,10 +15,10 @@ let cached = {
   promise: null,
 };
 
-async function connectMongoDB() {
+async function dbConnect() {
   if (cached.conn) {
     console.log('Reusing MongoDB connection');
-    return cached.conn;  // Return cached connection if already established
+    return cached.conn;
   }
 
   if (!cached.promise) {
@@ -36,8 +36,8 @@ async function connectMongoDB() {
       });
   }
 
-  cached.conn = await cached.promise;  
+  cached.conn = await cached.promise;
   return cached.conn;
 }
 
-connectMongoDB();
+export default dbConnect;

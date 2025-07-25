@@ -1,43 +1,40 @@
-/**
- * @typedef {Object} Product
- * @property {string} id
- * @property {string} name
- * @property {number} price
- * @property {string} image
- * @property {string} description
- * @property {string} category
- * @property {number} stock
- */
+// src/types/order.js
 
-/**
- * @typedef {Object} CartItem
- * @property {Product} product
- * @property {number} quantity
- */
+// Product shape example (for reference)
+export const exampleProduct = {
+  id: 'product-1',
+  name: 'Product Name',
+  price: 29.99,
+  image: '/product.jpg',
+  description: 'This is a product.',
+  category: 'Electronics',
+  stock: 10,
+};
 
-/**
- * @typedef {Object} DeliveryAddress
- * @property {string} fullName
- * @property {string} street
- * @property {string} city
- * @property {string} state
- * @property {string} zipCode
- * @property {string} phone
- */
+// CartItem example
+export const exampleCartItem = {
+  product: exampleProduct,
+  quantity: 2,
+};
 
-/**
- * @typedef {'cod' | 'online'} PaymentMethod
- * @typedef {'pending' | 'confirmed' | 'shipped' | 'delivered' | 'cancelled'} OrderStatus
- */
+// DeliveryAddress example
+export const exampleDeliveryAddress = {
+  fullName: 'John Doe',
+  street: '123 Main St',
+  city: 'New York',
+  state: 'NY',
+  zipCode: '10001',
+  phone: '555-1234',
+};
 
-/**
- * @typedef {Object} Order
- * @property {string} id
- * @property {CartItem[]} items
- * @property {number} totalAmount
- * @property {DeliveryAddress} deliveryAddress
- * @property {PaymentMethod} paymentMethod
- * @property {OrderStatus} status
- * @property {string} orderDate
- * @property {string} estimatedDelivery
- */
+// Order example
+export const exampleOrder = {
+  id: 'ORD-123456',
+  items: [exampleCartItem],
+  totalAmount: 59.98,
+  deliveryAddress: exampleDeliveryAddress,
+  paymentMethod: 'cod', // or 'online'
+  status: 'pending', // other values: confirmed, shipped, delivered, cancelled
+  orderDate: new Date().toISOString(),
+  estimatedDelivery: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(),
+};
