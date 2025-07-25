@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useState, useEffect } from "react";
 
 const CartContext = createContext(undefined);
 
@@ -15,6 +15,23 @@ export const useCart = () => {
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
   const [orders, setOrders] = useState([]);
+  const [isHydrated, setIsHydrated] = useState(false);
+
+  // Load persisted orders once
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const stored = localStorage.getItem('orders');
+      if (stored) setOrders(JSON.parse(stored));
+      setIsHydrated(true);
+    }
+  }, []);
+
+  // Persist orders on change
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('orders', JSON.stringify(orders));
+    }
+  }, [orders]);
 
   const addToCart = (product, quantity = 1) => {
     setCartItems((prev) => {
@@ -88,6 +105,7 @@ export const CartProvider = ({ children }) => {
       value={{
         cartItems,
         orders,
+        isHydrated,
         addToCart,
         removeFromCart,
         updateQuantity,
