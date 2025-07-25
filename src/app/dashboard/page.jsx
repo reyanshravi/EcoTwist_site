@@ -17,7 +17,7 @@ import {
   Sun,
   Leaf,
 } from "lucide-react";
-import { useCart } from "@/hooks/cartContext";
+import { useCart } from "@/contexts/CartContext";
 import { toast } from "react-hot-toast";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";

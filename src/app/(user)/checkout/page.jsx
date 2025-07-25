@@ -1,12 +1,12 @@
-"use client"
-import React, { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Separator } from '@/components/ui/separator';
-import { CheckCircle, Package, CreditCard, MapPin } from 'lucide-react';
-import { useCart } from '@/hooks/CartContext';
-import { useToast } from '@/hooks/use-toast';
+"use client";
+import React, { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
+import { CheckCircle, Package, CreditCard, MapPin } from "lucide-react";
+import { useCart } from "@/contexts/CartContext";
+import { useToast } from "@/hooks/use-toast";
 
 const page = () => {
   const router = useRouter();
@@ -22,12 +22,12 @@ const page = () => {
   const [checkoutData, setCheckoutData] = React.useState(null);
 
   useEffect(() => {
-    const dataStr = sessionStorage.getItem('checkoutData');
+    const dataStr = sessionStorage.getItem("checkoutData");
     if (dataStr) {
       setCheckoutData(JSON.parse(dataStr));
     } else {
       // No data found, redirect to cart page
-      router.replace('/cart');
+      router.replace("/cart");
     }
   }, [router]);
 
@@ -36,7 +36,8 @@ const page = () => {
     return null;
   }
 
-  const { deliveryAddress, paymentMethod, cartItems, totalAmount } = checkoutData;
+  const { deliveryAddress, paymentMethod, cartItems, totalAmount } =
+    checkoutData;
 
   const handlePlaceOrder = () => {
     const orderId = placeOrder(deliveryAddress, paymentMethod);
@@ -46,7 +47,7 @@ const page = () => {
       description: `Your order ${orderId} has been confirmed.`,
     });
 
-    router.push('/orders');
+    router.push("/orders");
   };
 
   return (
@@ -76,10 +77,13 @@ const page = () => {
                   <p className="font-medium">{deliveryAddress.fullName}</p>
                   <p className="text-gray-600">{deliveryAddress.street}</p>
                   <p className="text-gray-600">
-                    {deliveryAddress.city}, {deliveryAddress.state} {deliveryAddress.zipCode}
+                    {deliveryAddress.city}, {deliveryAddress.state}{" "}
+                    {deliveryAddress.zipCode}
                   </p>
                   {deliveryAddress.phone && (
-                    <p className="text-gray-600">Phone: {deliveryAddress.phone}</p>
+                    <p className="text-gray-600">
+                      Phone: {deliveryAddress.phone}
+                    </p>
                   )}
                 </div>
               </CardContent>
@@ -99,7 +103,9 @@ const page = () => {
                     <CheckCircle className="w-4 h-4 text-green-600" />
                   </div>
                   <span className="font-medium">
-                    {paymentMethod === 'cod' ? 'Cash on Delivery' : 'Online Payment'}
+                    {paymentMethod === "cod"
+                      ? "Cash on Delivery"
+                      : "Online Payment"}
                   </span>
                 </div>
               </CardContent>
@@ -133,7 +139,9 @@ const page = () => {
                           ${(item.product.price * item.quantity).toFixed(2)}
                         </p>
                       </div>
-                      {index < cartItems.length - 1 && <Separator className="mt-4" />}
+                      {index < cartItems.length - 1 && (
+                        <Separator className="mt-4" />
+                      )}
                     </div>
                   ))}
                 </div>
@@ -175,7 +183,11 @@ const page = () => {
                     <p>• Customer support available 24/7</p>
                   </div>
 
-                  <Button onClick={handlePlaceOrder} className="w-full" size="lg">
+                  <Button
+                    onClick={handlePlaceOrder}
+                    className="w-full"
+                    size="lg"
+                  >
                     <CheckCircle className="w-4 h-4 mr-2" />
                     Place Order
                   </Button>

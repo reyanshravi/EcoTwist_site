@@ -1,7 +1,6 @@
 "use client";
 
 import React, { createContext, useContext, useState } from "react";
-import { CartItem, Product, Order, DeliveryAddress } from "@/lib/order";
 
 const CartContext = createContext(undefined);
 

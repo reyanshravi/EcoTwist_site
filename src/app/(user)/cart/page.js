@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Package, MapPin, CreditCard, Calendar, Eye } from 'lucide-react';
-import { useCart } from '@/hooks/cartContext';
+import { useCart } from '@/contexts/CartContext';
 import Link from 'next/link';
 
 const OrdersPage = () => {

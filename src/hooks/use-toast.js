@@ -1,3 +1,5 @@
+"use client"
+
 import React, { useState, useEffect } from "react";
 
 const TOAST_LIMIT = 1;

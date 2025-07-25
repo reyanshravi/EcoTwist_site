@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { Search } from "lucide-react";
 import ProductCard from "@/components/ProductCard";
-import { useCart } from "@/hooks/cartContext";
+import { useCart } from "@/contexts/CartContext";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 
 // Mock products data
@@ -440,8 +440,8 @@ const page = () => {
             </div>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredProducts.map((product) => (
-                <ProductCard key={product.id} product={product} />
+              {filteredProducts.map((product, index) => (
+                <ProductCard key={index} product={product} />
               ))}
             </div>
           )}
