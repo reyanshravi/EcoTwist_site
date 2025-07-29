@@ -6,18 +6,37 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import debounce from "lodash.debounce";
 import Sidebar from "./Sidebar";
 import { useCart } from "@/contexts/CartContext";
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+} from "@/components/ui/dropdown-menu";
 
 export default function Header({ cartItemsCount = 0, onCartClick }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [hidden, setHidden] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
-  const lastScrollY = useRef(0);
   const { getTotalItems } = useCart();
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  // Check token on mount
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const token = localStorage.getItem("token");
+      setIsAuthenticated(!!token);
+    }
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setIsAuthenticated(false);
+    window.location.href = "/login";
+  };
 
   // Read from localStorage on mount
   // useEffect(() => {
@@ -28,28 +47,28 @@ export default function Header({ cartItemsCount = 0, onCartClick }) {
   // }, []);
 
   // Scroll logic
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentY = window.scrollY;
-      setScrolled(currentY > 20);
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     const currentY = window.scrollY;
+  //     setScrolled(currentY > 20);
 
-      if (currentY > 100) {
-        if (currentY > lastScrollY.current) {
-          setHidden(true); // Scrolling down
-          setIsMenuOpen(false);
-        } else {
-          setHidden(false); // Scrolling up
-        }
-      } else {
-        setHidden(false); // Top of page
-      }
-      lastScrollY.current = currentY;
-    };
+  //     if (currentY > 100) {
+  //       if (currentY > lastScrollY.current) {
+  //         setHidden(true); // Scrolling down
+  //         setIsMenuOpen(false);
+  //       } else {
+  //         setHidden(false); // Scrolling up
+  //       }
+  //     } else {
+  //       setHidden(false); // Top of page
+  //     }
+  //     lastScrollY.current = currentY;
+  //   };
 
-    const debouncedScroll = debounce(handleScroll, 50);
-    window.addEventListener("scroll", debouncedScroll);
-    return () => window.removeEventListener("scroll", debouncedScroll);
-  }, []);
+  //   const debouncedScroll = debounce(handleScroll, 50);
+  //   window.addEventListener("scroll", debouncedScroll);
+  //   return () => window.removeEventListener("scroll", debouncedScroll);
+  // }, []);
 
   const isActive = (path) => pathname === path;
 
@@ -63,18 +82,18 @@ export default function Header({ cartItemsCount = 0, onCartClick }) {
 
   return (
     <header
-      className={`fixed top-0 left-0 w-full z-50 bg-white backdrop-blur-md border-b transition-all duration-300 ${
+      className={` bg-white backdrop-blur-md border-b transition-all duration-300 ${
         hidden ? "-translate-y-full" : "translate-y-0"
       } ${scrolled ? "shadow-lg" : "shadow-sm"}`}
     >
       <div className="container mx-auto px-6 md:px-8">
-        <div className="flex justify-between items-center h-20">
+        <div className="flex justify-between items-center">
           {/* Logo */}
           <Link href="/" aria-label="Homepage" className="flex items-center">
             <img
               src="/logo.png"
               alt="Logo"
-              className="h-14 w-auto hover:scale-105 transition-transform"
+              className="h-16 w-auto hover:scale-105 transition-transform"
               loading="lazy"
               decoding="async"
             />
@@ -102,65 +121,48 @@ export default function Header({ cartItemsCount = 0, onCartClick }) {
 
           {/* Actions */}
           <div className="flex items-center gap-4">
-            {/* Search */}
-            {/* <Button
-              variant="ghost"
-              size="sm"
-              className="p-2 rounded-md hidden sm:flex hover:bg-gray-100"
-              onClick={() => alert("Open search modal")}
-              aria-label="Search"
-            >
-              <Search className="h-5 w-5 text-gray-600" />
-            </Button> */}
-            {/* <Sheet>
-              <SheetTrigger className="p-2 rounded-md hidden sm:flex hover:bg-gray-100">
-                {" "}
-                <Search className="h-5 w-5 text-gray-600" />
-              </SheetTrigger>
-              <SheetContent>
-                <SheetHeader>
-                  <SheetTitle>Are you absolutely sure?</SheetTitle>
-                  <SheetDescription>
-                    This action cannot be undone. This will permanently delete
-                    your account and remove your data from our servers.
-                  </SheetDescription>
-                </SheetHeader>
-              </SheetContent>
-            </Sheet> */}
             <Sidebar />
 
-            {/* User / Login */}
-            {/* {isAuthenticated ? (
-              <Link href="/dashboard">
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="p-2 hover:bg-gray-100"
-                >
-                  <User className="h-5 w-5 text-gray-600" />
-                </Button>
-              </Link>
+            {isAuthenticated ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    className="p-2 rounded-md hover:bg-gray-100"
+                  >
+                    <User className="h-5 w-5 text-gray-600" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-44">
+                  <DropdownMenuItem asChild>
+                    <Link href="/dashboard" className="w-full">
+                      Dashboard
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link href="/wishlist" className="w-full">
+                      Wishlist
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem
+                    onClick={handleLogout}
+                    className="text-red-600"
+                  >
+                    Logout
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             ) : (
               <Link href="/login">
                 <Button
                   variant="ghost"
-                  size="sm"
-                  className="p-2 hover:bg-gray-100"
+                  className="p-2 rounded-md hover:bg-gray-100"
                 >
-                  <LogIn className="h-5 w-5 text-gray-600" />
+                  <User className="h-5 w-5 text-gray-600" />
                 </Button>
               </Link>
-            )} */}
-
-            {/* user */}
-            <Link href="#">
-              <Button
-                variant="ghost"
-                className="p-2 rounded-md sm:flex items-center justify-center hover:bg-gray-100 transition-colors"
-              >
-                <User className="h-5 w-5 text-gray-600" />
-              </Button>
-            </Link>
+            )}
 
             <div className="border bg-gray-300 h-10"></div>
 
