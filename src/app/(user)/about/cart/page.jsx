@@ -20,7 +20,7 @@ export default function Page({
   // If the cart is empty
   if (cartItems.length === 0) {
     return (
-      <div className="min-h-screen bg-ivory py-16 mt-16">
+      <div className="min-h-screen bg-ivory py-16 ">
         <div className="container mx-auto px-4 text-center">
           <div className="max-w-md mx-auto">
             <div className="text-6xl mb-6">🛒</div>

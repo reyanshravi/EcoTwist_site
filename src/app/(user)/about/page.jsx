@@ -5,7 +5,7 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import Link from "next/link";
 export default function page() {
   return (
-    <div className="min-h-screen bg-[#f5f5f5] text-slate-800 mt-16">
+    <div className="min-h-screen bg-[#f5f5f5] text-slate-800 ">
       {/* Hero Section */}
       <div className="relative overflow-hidden">
         {/* Background Image with Gradient Overlay */}

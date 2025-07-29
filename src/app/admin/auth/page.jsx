@@ -14,73 +14,68 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Mail, Lock, LogIn, ArrowRightCircle } from "lucide-react";
 
-export default function LoginPage() {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [isLoading, setIsLoading] = useState(false);
-    const [errorMessage, setErrorMessage] = useState('');
-    const [formErrors, setFormErrors] = useState({ email: '', password: '' });
-    const router = useRouter();
+export default function page() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [formErrors, setFormErrors] = useState({ email: '', password: '' });
+  const router = useRouter();
 
-    const validateForm = () => {
-        const errors = { email: '', password: '' };
-        let isValid = true;
+  const validateForm = () => {
+    const errors = { email: '', password: '' };
+    let isValid = true;
 
-        if (!email) {
-            errors.email = 'Email is required';
-            isValid = false;
-        }
+    if (!email) {
+      errors.email = 'Email is required';
+      isValid = false;
+    }
 
-        if (!password) {
-            errors.password = 'Password is required';
-            isValid = false;
-        }
+    if (!password) {
+      errors.password = 'Password is required';
+      isValid = false;
+    }
 
-        setFormErrors(errors);
-        return isValid;
-    };
+    setFormErrors(errors);
+    return isValid;
+  };
 
-    const handleLogin = async (e) => {
-        e.preventDefault();
+  const handleLogin = async (e) => {
+    e.preventDefault();
 
-        if (!validateForm()) {
-            return; // Form has errors, prevent submission
-        }
+    if (!validateForm()) return;
 
-        setIsLoading(true);
-        setErrorMessage('');
-        setFormErrors({ email: '', password: '' }); // Clear previous errors
+    setIsLoading(true);
+    setErrorMessage('');
 
-        try {
-            const response = await fetch('/api/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ email, password }),
-            });
+    try {
+      const response = await fetch('admin/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
 
-            const result = await response.json();
+      const result = await response.json();
 
-            if (!response.ok) {
-                // Use message from API if available, else fallback
-                const errorText = result?.message || 'Invalid email or password.';
-                setErrorMessage(errorText);
-                return;
-            }
+      if (!response.ok) {
+        const errorText = result?.error || 'Invalid email or password.';
+        setErrorMessage(errorText);
+        return;
+      }
 
-            // Redirect on success
-            router.push('/admin/blogManagement');
-        } catch (error) {
-            console.error('Login error:', error);
-            setErrorMessage('Something went wrong. Please try again later.');
-        } finally {
-            setIsLoading(false);
-        }
-    };
+      // Login successful, cookie is set — just redirect
+      router.push('/admin/dashboard');
+    } catch (error) {
+      console.error('Login error:', error);
+      setErrorMessage('Something went wrong. Please try again later.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
-    return (
-         <div className="min-h-screen flex items-center justify-center py-12 px-4 relative">
+
+  return (
+    <div className="min-h-screen flex items-center justify-center py-12 px-4 relative">
       {/* Background Image + Overlay */}
       <div className="absolute inset-0 -z-10">
         <img
@@ -220,7 +215,7 @@ export default function LoginPage() {
         </CardContent>
       </Card>
     </div>
-    );
+  );
 }
 
 

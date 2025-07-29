@@ -89,57 +89,67 @@ export default function Home({ addToCart }) {
   ];
   return (
     <div className="min-h-screen">
-      {/* Hero Section */}
-      <section className="relative  text-white py-24 lg:py-40 overflow-hidden mt-16">
-        {/* Background Image with Overlay */}
-        <div className="absolute inset-0 -z-10">
-          <img
-            src="/eco-hero-image.jpg"
-            alt="Eco Friendly Gifts"
-            className="w-full h-full object-cover object-center"
-          />
-          <div className="absolute inset-0 bg-black/40  "></div>
+      <section className="z-10 relative text-gray-800 py-16 lg:py-32 overflow-hidden flex items-center bg-gradient-to-br from-white via-teal-50 to-white">
+        {/* Decorative Curve */}
+        <div className="absolute inset-0 opacity-10">
+          <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+            <path d="M0,80 Q50,100 100,80" fill="none" stroke="#2E7D32" strokeWidth="0.3" strokeDasharray="3" />
+          </svg>
         </div>
 
-        {/* Content */}
-        <div className="relative z-10 container mx-auto px-6 text-center max-w-5xl">
-          {/* Badge */}
-          <span className="inline-block bg-forest-800/80 px-6 py-2 rounded-full text-sm uppercase tracking-wide font-medium text-white shadow-md backdrop-blur">
-            🌱 Sustainable Corporate Gifting
-          </span>
-
-          {/* Heading */}
-          <h1 className="mt-6 font-heading text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight tracking-tight">
-            Transform Waste Into
-            <span className="block bg-gradient-to-r from-lime-300 via-green-400 to-sky-400 bg-clip-text text-transparent">
-              Premium Gifts
-            </span>
-          </h1>
-
-          {/* Subheading */}
-          <p className="mt-6 text-lg sm:text-xl lg:text-2xl text-white/90 font-light leading-relaxed max-w-3xl mx-auto">
-            Discover our curated collection of eco-friendly corporate gifts — beautifully crafted from upcycled waste and biodegradable materials. Every gift makes a lasting impact on both your brand and the planet.
-          </p>
-
-          {/* Call to Action Buttons */}
-          <div className="mt-10 flex flex-col sm:flex-row justify-center gap-4">
-            <Button
-              asChild // Use asChild here
-              className="px-8 py-4 text-lg font-medium bg-white/15 text-forest hover:bg-forest-100 transition-all duration-300 shadow-xl hover:scale-105"
-            >
-              <Link href="/shop">
-                Explore Products
-              </Link>
-            </Button>
-            <Button
-              asChild // Use asChild here
-              className="px-8 py-4 text-lg font-medium bg-white/15 text-forest hover:bg-forest-100 transition-all duration-300 shadow-xl hover:scale-105"
-            >
-              <Link href="/about">
-                Our Mission
-              </Link>
-            </Button>
+        {/* Image with Vignette */}
+        <div className="absolute top-0 left-0 w-1/2 h-full z-0 lg:flex hidden ">
+          <div className="relative w-full h-full overflow-auto">
+            <img
+              src="/eco-hero-image.png"
+              alt="Eco-Friendly Gifts"
+              className="w-full h-full object-contain object-center transition-opacity duration-300 hover:opacity-95"
+            />
+            <div className="absolute inset-0 bg-gradient-to-br from-white/60 via-transparent to-white/60" />
           </div>
+        </div>
+
+        {/* Content Block */}
+        <div className="relative z-10 container mx-auto px-4 flex items-center justify-end">
+          <div className="max-w-3xl min-h-[400px] lg:min-h-[500px] bg-white/95 p-8 lg:p-12 rounded-xl border border-teal-100 shadow-md transition-transform duration-300 hover:shadow-lg lg:-rotate-1 lg:hover:rotate-0">
+            {/* Badge */}
+            <span className="inline-block bg-teal-100 px-3 py-1 rounded-full text-xs uppercase tracking-wide font-semibold text-teal-800">
+              🌿 Eco Elite Gifting
+            </span>
+
+            {/* Heading */}
+            <h1 className="mt-6 font-sans text-3xl sm:text-4xl lg:text-8xl font-bold leading-20 tracking-tight text-gray-800 group hover:text-teal-600 transition-colors duration-300">
+              Upcycle to <span className="group-hover:text-teal-500">Eco-Luxury</span>
+            </h1>
+
+            {/* Subheading */}
+            <p className="mt-6 text-base sm:text-lg lg:text-xl text-gray-600 font-light leading-tight max-w-xl">
+              Transform your brand with exclusive, upcycled gifts. Sustainable, chic, and ready to impress—act today!
+            </p>
+
+            {/* Call to Action Buttons */}
+            <div className="mt-6 flex flex-col sm:flex-row gap-3">
+              <Button
+                asChild
+                className="px-5 py-3 text-sm sm:text-base font-medium bg-teal-50 text-teal-700 hover:bg-teal-100 transition-colors duration-300 rounded-lg"
+              >
+                <Link href="/products">Discover Gifts</Link>
+              </Button>
+              <Button
+                asChild
+                className="px-5 py-3 text-sm sm:text-base font-medium bg-gray-50 text-gray-700 hover:bg-gray-100 transition-colors duration-300 rounded-lg"
+              >
+                <Link href="/about">Our Story</Link>
+              </Button>
+            </div>
+          </div>
+        </div>
+
+        {/* Minimal Eco Icon (Moved to bottom for mobile visibility) */}
+        <div className="absolute bottom-4 left-4 w-10 h-10 text-teal-400/50 lg:hidden">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z" />
+          </svg>
         </div>
       </section>
 

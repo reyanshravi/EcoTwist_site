@@ -33,6 +33,7 @@ import {
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
+import { Avatar } from "@/components/ui/avatar";
 
 const page = () => {
   const { orders, getTotalItems } = useCart();
@@ -40,7 +41,7 @@ const page = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [userProfile, setUserProfile] = useState({
-    name: "John Doe",
+    name: "Amit kumar",
     email: "john.doe@example.com",
     phone: "+1 (555) 123-4567",
     addresses: [
@@ -76,7 +77,7 @@ const page = () => {
       pending: "bg-amber-100 text-amber-800",
       confirmed: "bg-sky-100 text-sky-800",
       shipped: "bg-indigo-100 text-indigo-800",
-      delivered: "bg-emerald-100 text-emerald-800",
+      delivered: "bg-gray-100 text-gray-800",
       cancelled: "bg-rose-100 text-rose-800",
     }[status] || "bg-gray-100 text-gray-800");
 
@@ -176,47 +177,32 @@ const page = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-emerald-50 to-teal-100 dark:from-emerald-900 dark:to-teal-950 font-sans">
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-950 font-sans">
       <div className="flex">
         {/* Sidebar */}
         <aside
-          className={`fixed inset-y-0 left-0 z-50 w-64 bg-white dark:bg-emerald-800 transform ${
+          className={`fixed inset-y-0 left-0 z-50 w-64 bg-white dark:bg-gray-800 transform ${
             isSidebarOpen ? "translate-x-0" : "-translate-x-full"
           } lg:translate-x-0 transition-transform duration-300 ease-in-out shadow-lg`}
         >
-          <div className="flex items-center justify-between p-4 border-b border-emerald-200 dark:border-emerald-700">
-            <div className="flex items-center gap-2">
-              <Leaf className="w-6 h-6 text-emerald-600 dark:text-emerald-300" />
-              <h2 className="text-xl font-semibold text-emerald-900 dark:text-emerald-100">
-                Nature Dash
-              </h2>
-            </div>
-            <button
-              className="lg:hidden text-emerald-600 dark:text-emerald-300"
-              onClick={() => setIsSidebarOpen(false)}
-            >
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
-            </button>
+          <div className="h-56 bg-black/40 m-4 rounded-md">
+            <img
+              src="./Avatar.png"
+              alt=""
+              className="object-contain object-center w-full h-full  p-4 "
+            />
+          </div>
+
+          <div className="px-6 font-semibold text-lg ">
+            <h1>{userProfile.name}</h1>
           </div>
           <nav className="p-4 space-y-2">
             {sidebarItems.map((item) => (
               <button
                 key={item.value}
-                className={`w-full flex items-center p-3 rounded-lg text-emerald-700 dark:text-emerald-200 hover:bg-emerald-100 dark:hover:bg-emerald-700 transition-colors ${
+                className={`w-full flex items-center p-3 rounded-lg text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors ${
                   activeTab === item.value
-                    ? "bg-emerald-100 dark:bg-emerald-700 text-emerald-900 dark:text-emerald-100 font-semibold"
+                    ? "bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100 font-semibold"
                     : ""
                 }`}
                 onClick={() => {
@@ -236,11 +222,11 @@ const page = () => {
         {/* Main Content */}
         <div className="flex-1 lg:ml-64">
           {/* Header */}
-          <header className="bg-white dark:bg-emerald-900 shadow-md p-4 sticky top-0 z-40">
+          <header className="bg-white dark:bg-gray-900 p-4 sticky top-0 z-40">
             <div className="container mx-auto flex items-center justify-between">
               <div className="flex items-center gap-4">
                 <button
-                  className="lg:hidden text-emerald-600 dark:text-emerald-300"
+                  className="lg:hidden text-gray-600 dark:text-gray-300"
                   onClick={() => setIsSidebarOpen(true)}
                 >
                   <svg
@@ -257,11 +243,11 @@ const page = () => {
                     />
                   </svg>
                 </button>
-                <div>
-                  <h1 className="text-2xl font-bold text-emerald-900 dark:text-emerald-100">
+                <div className="md:block hidden">
+                  <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
                     Welcome, {userProfile.name}
                   </h1>
-                  <p className="text-sm text-emerald-600 dark:text-emerald-300">
+                  <p className="text-sm text-gray-600 dark:text-gray-300">
                     Your nature-inspired shopping hub
                   </p>
                 </div>
@@ -271,7 +257,7 @@ const page = () => {
                   variant="outline"
                   size="icon"
                   onClick={() => setIsDarkMode(!isDarkMode)}
-                  className="border-emerald-300 text-emerald-600 dark:text-emerald-300"
+                  className="border-gray-300 text-gray-600 dark:text-gray-300 md:flex hidden"
                 >
                   {isDarkMode ? (
                     <Sun className="w-5 h-5" />
@@ -282,14 +268,14 @@ const page = () => {
                 <Link href="/products">
                   <Button
                     variant="outline"
-                    className="border-emerald-300 text-emerald-600 dark:text-emerald-300"
+                    className="border-gray-300 text-gray-600 dark:text-gray-300  md:flex hidden"
                   >
                     <ShoppingCart className="w-4 h-4 mr-2" />
                     Shop Now
                   </Button>
                 </Link>
                 <Link href="/cart">
-                  <Button className="bg-emerald-600 text-white hover:bg-emerald-700">
+                  <Button className="bg-gray-600 text-white hover:bg-gray-700">
                     <ShoppingCart className="w-4 h-4 mr-2" />
                     Cart ({getTotalItems()})
                   </Button>
@@ -332,19 +318,19 @@ const page = () => {
                   ].map((stat, idx) => (
                     <Card
                       key={idx}
-                      className="bg-white dark:bg-emerald-800 border-emerald-200 hover:shadow-lg transition-shadow"
+                      className="bg-white dark:bg-gray-800 border-gray-200 hover:shadow-lg transition-shadow"
                     >
                       <CardHeader className="pb-2">
-                        <CardTitle className="flex items-center text-sm font-semibold text-emerald-900 dark:text-emerald-100">
-                          <stat.icon className="w-4 h-4 mr-2 text-emerald-600 dark:text-emerald-300" />
+                        <CardTitle className="flex items-center text-sm font-semibold text-gray-900 dark:text-gray-100">
+                          <stat.icon className="w-4 h-4 mr-2 text-gray-600 dark:text-gray-300" />
                           {stat.title}
                         </CardTitle>
                       </CardHeader>
                       <CardContent>
-                        <div className="text-2xl font-bold text-emerald-900 dark:text-emerald-100">
+                        <div className="text-2xl font-bold text-gray-900 dark:text-gray-100">
                           {stat.value}
                         </div>
-                        <p className="text-xs text-emerald-600 dark:text-emerald-300">
+                        <p className="text-xs text-gray-600 dark:text-gray-300">
                           {stat.subtext}
                         </p>
                       </CardContent>
@@ -353,17 +339,17 @@ const page = () => {
                 </div>
 
                 {/* Recent Orders */}
-                <Card className="bg-white dark:bg-emerald-800 border-emerald-200">
+                <Card className="bg-white dark:bg-gray-800 border-gray-200">
                   <CardHeader>
                     <div className="flex items-center justify-between">
-                      <CardTitle className="text-emerald-900 dark:text-emerald-100">
+                      <CardTitle className="text-gray-900 dark:text-gray-100">
                         Recent Orders
                       </CardTitle>
                       <Link href="/orders">
                         <Button
                           variant="outline"
                           size="sm"
-                          className="border-emerald-300 text-emerald-600 dark:text-emerald-300"
+                          className="border-gray-300 text-gray-600 dark:text-gray-300"
                         >
                           View All
                         </Button>
@@ -376,15 +362,15 @@ const page = () => {
                         {orders.slice(0, 3).map((order) => (
                           <div
                             key={order.id}
-                            className="flex items-center justify-between p-4 border border-emerald-200 dark:border-emerald-700 rounded-lg hover:bg-emerald-50 dark:hover:bg-emerald-700 transition-colors"
+                            className="flex items-center justify-between p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
                           >
                             <div className="flex items-center gap-4">
-                              <Package className="w-6 h-6 text-emerald-600 dark:text-emerald-300" />
+                              <Package className="w-6 h-6 text-gray-600 dark:text-gray-300" />
                               <div>
-                                <p className="font-medium text-emerald-900 dark:text-emerald-100">
+                                <p className="font-medium text-gray-900 dark:text-gray-100">
                                   Order #{order.id}
                                 </p>
-                                <p className="text-sm text-emerald-600 dark:text-emerald-300">
+                                <p className="text-sm text-gray-600 dark:text-gray-300">
                                   {formatDate(order.orderDate)}
                                 </p>
                               </div>
@@ -394,7 +380,7 @@ const page = () => {
                                 {order.status.charAt(0).toUpperCase() +
                                   order.status.slice(1)}
                               </Badge>
-                              <p className="font-medium text-emerald-900 dark:text-emerald-100">
+                              <p className="font-medium text-gray-900 dark:text-gray-100">
                                 ${order.totalAmount.toFixed(2)}
                               </p>
                             </div>
@@ -403,12 +389,12 @@ const page = () => {
                       </div>
                     ) : (
                       <div className="text-center py-8">
-                        <Package className="w-12 h-12 mx-auto text-emerald-600 dark:text-emerald-300 mb-4" />
-                        <p className="text-emerald-600 dark:text-emerald-300">
+                        <Package className="w-12 h-12 mx-auto text-gray-600 dark:text-gray-300 mb-4" />
+                        <p className="text-gray-600 dark:text-gray-300">
                           No orders yet
                         </p>
                         <Link href="/products">
-                          <Button className="mt-4 bg-emerald-600 text-white hover:bg-emerald-700">
+                          <Button className="mt-4 bg-gray-600 text-white hover:bg-gray-700">
                             Start Shopping
                           </Button>
                         </Link>
@@ -420,10 +406,10 @@ const page = () => {
             )}
 
             {activeTab === "orders" && (
-              <Card className="bg-white dark:bg-emerald-800 border-emerald-200">
+              <Card className="bg-white dark:bg-gray-800 border-gray-200">
                 <CardHeader>
                   <div className="flex items-center justify-between flex-wrap gap-4">
-                    <CardTitle className="text-emerald-900 dark:text-emerald-100">
+                    <CardTitle className="text-gray-900 dark:text-gray-100">
                       Order History
                     </CardTitle>
                     <div className="flex gap-4">
@@ -431,7 +417,7 @@ const page = () => {
                         value={orderFilter}
                         onValueChange={setOrderFilter}
                       >
-                        <SelectTrigger className="w-[140px] border-emerald-300">
+                        <SelectTrigger className="w-[140px] border-gray-300">
                           <SelectValue placeholder="All Status" />
                         </SelectTrigger>
                         <SelectContent>
@@ -444,7 +430,7 @@ const page = () => {
                         </SelectContent>
                       </Select>
                       <Select value={orderSort} onValueChange={setOrderSort}>
-                        <SelectTrigger className="w-[140px] border-emerald-300">
+                        <SelectTrigger className="w-[140px] border-gray-300">
                           <SelectValue placeholder="Newest First" />
                         </SelectTrigger>
                         <SelectContent>
@@ -469,14 +455,14 @@ const page = () => {
                       {filteredOrders.map((order) => (
                         <div
                           key={order.id}
-                          className="border border-emerald-200 dark:border-emerald-700 rounded-lg p-4"
+                          className="border border-gray-200 dark:border-gray-700 rounded-lg p-4"
                         >
                           <div className="flex justify-between items-start mb-4">
                             <div>
-                              <h3 className="font-medium text-emerald-900 dark:text-emerald-100">
+                              <h3 className="font-medium text-gray-900 dark:text-gray-100">
                                 Order #{order.id}
                               </h3>
-                              <p className="text-sm text-emerald-600 dark:text-emerald-300">
+                              <p className="text-sm text-gray-600 dark:text-gray-300">
                                 Placed on {formatDate(order.orderDate)}
                               </p>
                             </div>
@@ -497,10 +483,10 @@ const page = () => {
                                   className="w-12 h-12 object-cover rounded"
                                 />
                                 <div className="flex-1">
-                                  <p className="font-medium text-emerald-900 dark:text-emerald-100">
+                                  <p className="font-medium text-gray-900 dark:text-gray-100">
                                     {item.product.name}
                                   </p>
-                                  <p className="text-emerald-600 dark:text-emerald-300">
+                                  <p className="text-gray-600 dark:text-gray-300">
                                     Quantity: {item.quantity}
                                   </p>
                                 </div>
@@ -510,7 +496,7 @@ const page = () => {
                                   onClick={() =>
                                     handleAddToWishlist(item.product)
                                   }
-                                  className="border-emerald-300 text-emerald-600 dark:text-emerald-300"
+                                  className="border-gray-300 text-gray-600 dark:text-gray-300"
                                 >
                                   <Heart className="w-4 h-4 mr-2" />
                                   Add to Wishlist
@@ -519,14 +505,14 @@ const page = () => {
                             ))}
                           </div>
                           <div className="flex justify-between items-center">
-                            <span className="font-medium text-emerald-900 dark:text-emerald-100">
+                            <span className="font-medium text-gray-900 dark:text-gray-100">
                               Total: ${order.totalAmount.toFixed(2)}
                             </span>
                             <div className="flex gap-2">
                               <Button
                                 variant="outline"
                                 size="sm"
-                                className="border-emerald-300 text-emerald-600 dark:text-emerald-300"
+                                className="border-gray-300 text-gray-600 dark:text-gray-300"
                               >
                                 <Truck className="w-4 h-4 mr-2" />
                                 Track Order
@@ -534,7 +520,7 @@ const page = () => {
                               <Button
                                 variant="outline"
                                 size="sm"
-                                className="border-emerald-300 text-emerald-600 dark:text-emerald-300"
+                                className="border-gray-300 text-gray-600 dark:text-gray-300"
                               >
                                 <Eye className="w-4 h-4 mr-2" />
                                 View Details
@@ -546,12 +532,12 @@ const page = () => {
                     </div>
                   ) : (
                     <div className="text-center py-8">
-                      <Package className="w-12 h-12 mx-auto text-emerald-600 dark:text-emerald-300 mb-4" />
-                      <p className="text-emerald-600 dark:text-emerald-300">
+                      <Package className="w-12 h-12 mx-auto text-gray-600 dark:text-gray-300 mb-4" />
+                      <p className="text-gray-600 dark:text-gray-300">
                         No orders match your criteria
                       </p>
                       <Link href="/products">
-                        <Button className="mt-4 bg-emerald-600 text-white hover:bg-emerald-700">
+                        <Button className="mt-4 bg-gray-600 text-white hover:bg-gray-700">
                           Start Shopping
                         </Button>
                       </Link>
@@ -562,9 +548,9 @@ const page = () => {
             )}
 
             {activeTab === "wishlist" && (
-              <Card className="bg-white dark:bg-emerald-800 border-emerald-200">
+              <Card className="bg-white dark:bg-gray-800 border-gray-200">
                 <CardHeader>
-                  <CardTitle className="text-emerald-900 dark:text-emerald-100">
+                  <CardTitle className="text-gray-900 dark:text-gray-100">
                     My Wishlist
                   </CardTitle>
                 </CardHeader>
@@ -574,17 +560,17 @@ const page = () => {
                       {userProfile.wishlist.map((item) => (
                         <div
                           key={item.id}
-                          className="border border-emerald-200 dark:border-emerald-700 rounded-lg p-4 hover:shadow-lg transition-shadow"
+                          className="border border-gray-200 dark:border-gray-700 rounded-lg p-4 hover:shadow-lg transition-shadow"
                         >
                           <img
                             src={item.image || "/placeholder.svg"}
                             alt={item.name}
                             className="w-full h-40 object-cover rounded-lg mb-4"
                           />
-                          <h3 className="font-medium text-emerald-900 dark:text-emerald-100">
+                          <h3 className="font-medium text-gray-900 dark:text-gray-100">
                             {item.name}
                           </h3>
-                          <p className="text-sm text-emerald-600 dark:text-emerald-300">
+                          <p className="text-sm text-gray-600 dark:text-gray-300">
                             ${item.price}
                           </p>
                           <div className="flex items-center gap-2 mt-2">
@@ -592,16 +578,16 @@ const page = () => {
                               type="checkbox"
                               checked={item.priceAlert}
                               onChange={() => togglePriceAlert(item.id)}
-                              className="w-4 h-4 text-emerald-600 rounded"
+                              className="w-4 h-4 text-gray-600 rounded"
                             />
-                            <span className="text-xs text-emerald-600 dark:text-emerald-300">
+                            <span className="text-xs text-gray-600 dark:text-gray-300">
                               Notify on price drop
                             </span>
                           </div>
                           <div className="flex gap-2 mt-4">
                             <Button
                               size="sm"
-                              className="bg-emerald-600 text-white hover:bg-emerald-700"
+                              className="bg-gray-600 text-white hover:bg-gray-700"
                             >
                               Add to Cart
                             </Button>
@@ -609,7 +595,7 @@ const page = () => {
                               variant="outline"
                               size="sm"
                               onClick={() => handleRemoveFromWishlist(item.id)}
-                              className="border-emerald-300 text-emerald-600 dark:text-emerald-300"
+                              className="border-gray-300 text-gray-600 dark:text-gray-300"
                             >
                               <Heart className="w-4 h-4 mr-2 fill-red-500" />
                               Remove
@@ -620,12 +606,12 @@ const page = () => {
                     </div>
                   ) : (
                     <div className="text-center py-8">
-                      <Heart className="w-12 h-12 mx-auto text-emerald-600 dark:text-emerald-300 mb-4" />
-                      <p className="text-emerald-600 dark:text-emerald-300">
+                      <Heart className="w-12 h-12 mx-auto text-gray-600 dark:text-gray-300 mb-4" />
+                      <p className="text-gray-600 dark:text-gray-300">
                         Your wishlist is empty
                       </p>
                       <Link href="/products">
-                        <Button className="mt-4 bg-emerald-600 text-white hover:bg-emerald-700">
+                        <Button className="mt-4 bg-gray-600 text-white hover:bg-gray-700">
                           Browse Products
                         </Button>
                       </Link>
@@ -637,15 +623,15 @@ const page = () => {
 
             {activeTab === "addresses" && (
               <div className="space-y-6">
-                <Card className="bg-white dark:bg-emerald-800 border-emerald-200">
+                <Card className="bg-white dark:bg-gray-800 border-gray-200">
                   <CardHeader>
-                    <CardTitle className="text-emerald-900 dark:text-emerald-100">
+                    <CardTitle className="text-gray-900 dark:text-gray-100">
                       Add New Address
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-6">
                     <div className="space-y-2">
-                      <h3 className="text-lg font-semibold text-emerald-800 dark:text-emerald-100">
+                      <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100">
                         Address Information
                       </h3>
                       <p className="text-sm text-gray-500 dark:text-gray-400">
@@ -657,7 +643,7 @@ const page = () => {
                       <div className="space-y-2">
                         <Label
                           htmlFor="address-type"
-                          className="text-emerald-900 dark:text-emerald-100"
+                          className="text-gray-900 dark:text-gray-100"
                         >
                           Address Type
                         </Label>
@@ -667,7 +653,7 @@ const page = () => {
                             setNewAddress((prev) => ({ ...prev, type: value }))
                           }
                         >
-                          <SelectTrigger className="border-emerald-300 focus:ring-2 focus:ring-emerald-400 rounded-md shadow-sm">
+                          <SelectTrigger className="border-gray-300 focus:ring-2 focus:ring-gray-400 rounded-md shadow-sm">
                             <SelectValue placeholder="Select type" />
                           </SelectTrigger>
                           <SelectContent>
@@ -681,7 +667,7 @@ const page = () => {
                       <div className="space-y-2">
                         <Label
                           htmlFor="street"
-                          className="text-emerald-900 dark:text-emerald-100"
+                          className="text-gray-900 dark:text-gray-100"
                         >
                           Street Address
                         </Label>
@@ -694,7 +680,7 @@ const page = () => {
                               street: e.target.value,
                             }))
                           }
-                          className="border-emerald-300 focus:ring-2 focus:ring-emerald-400 rounded-md shadow-sm"
+                          className="border-gray-300 focus:ring-2 focus:ring-gray-400 rounded-md shadow-sm"
                           placeholder="123 Main St"
                         />
                       </div>
@@ -704,7 +690,7 @@ const page = () => {
                       <div className="space-y-2">
                         <Label
                           htmlFor="city"
-                          className="text-emerald-900 dark:text-emerald-100"
+                          className="text-gray-900 dark:text-gray-100"
                         >
                           City
                         </Label>
@@ -717,7 +703,7 @@ const page = () => {
                               city: e.target.value,
                             }))
                           }
-                          className="border-emerald-300 focus:ring-2 focus:ring-emerald-400 rounded-md shadow-sm"
+                          className="border-gray-300 focus:ring-2 focus:ring-gray-400 rounded-md shadow-sm"
                           placeholder="City name"
                         />
                       </div>
@@ -725,7 +711,7 @@ const page = () => {
                       <div className="space-y-2">
                         <Label
                           htmlFor="state"
-                          className="text-emerald-900 dark:text-emerald-100"
+                          className="text-gray-900 dark:text-gray-100"
                         >
                           State
                         </Label>
@@ -738,7 +724,7 @@ const page = () => {
                               state: e.target.value,
                             }))
                           }
-                          className="border-emerald-300 focus:ring-2 focus:ring-emerald-400 rounded-md shadow-sm"
+                          className="border-gray-300 focus:ring-2 focus:ring-gray-400 rounded-md shadow-sm"
                           placeholder="State"
                         />
                       </div>
@@ -746,7 +732,7 @@ const page = () => {
                       <div className="space-y-2">
                         <Label
                           htmlFor="zipCode"
-                          className="text-emerald-900 dark:text-emerald-100"
+                          className="text-gray-900 dark:text-gray-100"
                         >
                           Zip Code
                         </Label>
@@ -759,7 +745,7 @@ const page = () => {
                               zipCode: e.target.value,
                             }))
                           }
-                          className="border-emerald-300 focus:ring-2 focus:ring-emerald-400 rounded-md shadow-sm"
+                          className="border-gray-300 focus:ring-2 focus:ring-gray-400 rounded-md shadow-sm"
                           placeholder="12345"
                         />
                       </div>
@@ -768,16 +754,16 @@ const page = () => {
                     <div className="flex justify-end pt-4">
                       <Button
                         onClick={handleAddAddress}
-                        className="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-2 rounded-md shadow-md"
+                        className="bg-gray-600 hover:bg-gray-700 text-white px-6 py-2 rounded-md shadow-md"
                       >
                         Add Address
                       </Button>
                     </div>
                   </CardContent>
                 </Card>
-                <Card className="bg-white dark:bg-emerald-800 border-emerald-200">
+                <Card className="bg-white dark:bg-gray-800 border-gray-200">
                   <CardHeader>
-                    <CardTitle className="text-emerald-900 dark:text-emerald-100">
+                    <CardTitle className="text-gray-900 dark:text-gray-100">
                       Saved Addresses
                     </CardTitle>
                   </CardHeader>
@@ -785,15 +771,15 @@ const page = () => {
                     {userProfile.addresses.map((address) => (
                       <div
                         key={address.id}
-                        className="border border-emerald-200 dark:border-emerald-700 rounded-lg p-4 flex items-start justify-between"
+                        className="border border-gray-200 dark:border-gray-700 rounded-lg p-4 flex items-start justify-between"
                       >
                         <div className="flex items-start gap-4">
-                          <MapPin className="w-5 h-5 text-emerald-600 dark:text-emerald-300 mt-1" />
+                          <MapPin className="w-5 h-5 text-gray-600 dark:text-gray-300 mt-1" />
                           <div>
-                            <p className="font-medium text-emerald-900 dark:text-emerald-100">
+                            <p className="font-medium text-gray-900 dark:text-gray-100">
                               {address.type}
                             </p>
-                            <p className="text-sm text-emerald-600 dark:text-emerald-300">
+                            <p className="text-sm text-gray-600 dark:text-gray-300">
                               {address.street}
                               <br />
                               {address.city}, {address.state} {address.zipCode}
@@ -804,7 +790,7 @@ const page = () => {
                           <Button
                             variant="outline"
                             size="sm"
-                            className="border-emerald-300 text-emerald-600 dark:text-emerald-300"
+                            className="border-gray-300 text-gray-600 dark:text-gray-300"
                           >
                             Edit
                           </Button>
@@ -812,7 +798,7 @@ const page = () => {
                             variant="outline"
                             size="sm"
                             onClick={() => handleDeleteAddress(address.id)}
-                            className="border-emerald-300 text-emerald-600 dark:text-emerald-300"
+                            className="border-gray-300 text-gray-600 dark:text-gray-300"
                           >
                             Delete
                           </Button>
@@ -826,78 +812,170 @@ const page = () => {
 
             {activeTab === "settings" && (
               <div className="space-y-6">
-                <Card className="bg-white dark:bg-emerald-800 border-emerald-200">
-                  <CardHeader>
-                    <CardTitle className="text-emerald-900 dark:text-emerald-100">
-                      Notifications
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-4">
-                        <Bell className="w-5 h-5 text-emerald-600 dark:text-emerald-300" />
-                        <div>
-                          <p className="font-medium text-emerald-900 dark:text-emerald-100">
-                            Order Updates
-                          </p>
-                          <p className="text-sm text-emerald-600 dark:text-emerald-300">
-                            Get notified about order status changes
-                          </p>
+                <div className="flex flex-col lg:flex-row lg:space-x-6 space-y-6 lg:space-y-0">
+                  {/* Account Info Card */}
+                  <Card className="flex-1">
+                    <CardHeader>
+                      <CardTitle className="text-gray-900 dark:text-gray-100 text-xl font-semibold">
+                        Account Info
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-6">
+                      <form className="flex flex-col sm:flex-row sm:items-center justify-between space-y-4 sm:space-y-0 sm:space-x-6">
+                        <div className="flex flex-col w-full sm:w-auto space-y-4">
+                          <div className="flex space-x-4">
+                            <div className="flex flex-col flex-1">
+                              <label
+                                htmlFor="firstName"
+                                className="mb-1 text-sm font-medium text-gray-700 dark:text-gray-300"
+                              >
+                                First Name
+                              </label>
+                              <input
+                                type="text"
+                                id="firstName"
+                                placeholder="First name"
+                                className="rounded-md border border-gray-300 dark:border-gray-600 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:text-gray-100"
+                              />
+                            </div>
+                            <div className="flex flex-col flex-1">
+                              <label
+                                htmlFor="lastName"
+                                className="mb-1 text-sm font-medium text-gray-700 dark:text-gray-300"
+                              >
+                                Last Name
+                              </label>
+                              <input
+                                type="text"
+                                id="lastName"
+                                placeholder="Last name"
+                                className="rounded-md border border-gray-300 dark:border-gray-600 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:text-gray-100"
+                              />
+                            </div>
+                          </div>
+
+                          <div className="flex flex-col">
+                            <label
+                              htmlFor="email"
+                              className="mb-1 text-sm font-medium text-gray-700 dark:text-gray-300"
+                            >
+                              Email
+                            </label>
+                            <input
+                              type="email"
+                              id="email"
+                              placeholder="Enter your email"
+                              className="rounded-md border border-gray-300 dark:border-gray-600 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:text-gray-100"
+                            />
+                          </div>
+
+                          <div className="flex flex-col">
+                            <label
+                              htmlFor="phone"
+                              className="mb-1 text-sm font-medium text-gray-700 dark:text-gray-300"
+                            >
+                              Phone Number
+                            </label>
+                            <input
+                              type="tel"
+                              id="phone"
+                              placeholder="Enter your phone number"
+                              className="rounded-md border border-gray-300 dark:border-gray-600 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:text-gray-100"
+                            />
+                          </div>
                         </div>
+                      </form>
+                      <div className="">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          className="border-gray-300 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                          type="submit"
+                        >
+                          Save
+                        </Button>
                       </div>
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        className="border-emerald-300 text-emerald-600 dark:text-emerald-300"
-                      >
-                        Configure
-                      </Button>
-                    </div>
-                    <Separator className="bg-emerald-200 dark:bg-emerald-700" />
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-4">
-                        <Leaf className="w-5 h-5 text-emerald-600 dark:text-emerald-300" />
-                        <div>
-                          <p className="font-medium text-emerald-900 dark:text-emerald-100">
-                            Eco Preferences
-                          </p>
-                          <p className="text-sm text-emerald-600 dark:text-emerald-300">
-                            Manage your sustainability settings
-                          </p>
+                    </CardContent>
+                  </Card>
+
+                  {/* Notifications Card */}
+                  <Card className="flex-1 bg-white dark:bg-gray-800 border-gray-200">
+                    <CardHeader>
+                      <CardTitle className="text-gray-900 dark:text-gray-100">
+                        Notifications
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-4">
+                          <Bell className="w-5 h-5 text-gray-600 dark:text-gray-300" />
+                          <div>
+                            <p className="font-medium text-gray-900 dark:text-gray-100">
+                              Order Updates
+                            </p>
+                            <p className="text-sm text-gray-600 dark:text-gray-300">
+                              Get notified about order status changes
+                            </p>
+                          </div>
                         </div>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          className="border-gray-300 text-gray-600 dark:text-gray-300"
+                        >
+                          Configure
+                        </Button>
                       </div>
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        className="border-emerald-300 text-emerald-600 dark:text-emerald-300"
-                      >
-                        Manage
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-                <Card className="bg-white dark:bg-emerald-800 border-emerald-200">
-                  <CardHeader>
-                    <CardTitle className="text-emerald-900 dark:text-emerald-100">
+                      <Separator className="bg-gray-200 dark:bg-gray-700" />
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-4">
+                          <Leaf className="w-5 h-5 text-gray-600 dark:text-gray-300" />
+                          <div>
+                            <p className="font-medium text-gray-900 dark:text-gray-100">
+                              Eco Preferences
+                            </p>
+                            <p className="text-sm text-gray-600 dark:text-gray-300">
+                              Manage your sustainability settings
+                            </p>
+                          </div>
+                        </div>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          className="border-gray-300 text-gray-600 dark:text-gray-300"
+                        >
+                          Manage
+                        </Button>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+                {/* Account Settings Card */}
+                <Card className="flex-1 bg-white dark:bg-gray-800 border-gray-200">
+                  <CardHeader className="flex justify-between items-center">
+                    <CardTitle className="text-gray-900 dark:text-gray-100">
                       Account Settings
                     </CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-2">
                     <Button
                       variant="outline"
-                      className="w-full flex justify-between items-center border-emerald-200 dark:border-emerald-700 text-emerald-800 dark:text-emerald-200"
+                      className="flex justify-between items-center border-gray-200 dark:border-gray-700 text-gray-800 dark:text-gray-200"
                       onClick={() => setIsDarkMode(!isDarkMode)}
-                    ></Button>
+                    >
+                      {/* Assuming you want a label/icon here? Add it if needed */}
+                      Toggle Dark Mode
+                    </Button>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
                     <Button
                       variant="outline"
-                      className="w-full items-center gap-2 border-emerald-200 dark:border-emerald-700 text-emerald-800 dark:text-emerald-200"
+                      className="w-full flex items-center gap-2 border-gray-200 dark:border-gray-700 text-gray-800 dark:text-gray-200"
                     >
                       <Settings className="w-4 h-4" />
                       Privacy Settings
                     </Button>
                     <Button
                       variant="outline"
-                      className="w-full flex items-center gap-2 border-emerald-200 dark:border-emerald-700 text-emerald-800 "
+                      className="w-full flex items-center gap-2 border-gray-200 dark:border-gray-700 text-gray-800 dark:text-gray-200"
                     >
                       <User className="w-4 h-4" />
                       Change Password

@@ -88,7 +88,7 @@ const categories = [
 
 export default function page() {
   return (
-    <div className="min-h-screen bg-ivory  pb-16 mt-16">
+    <div className="min-h-screen bg-ivory  pb-16 ">
       <div className="container mx-auto ">
         {/* Header */}
         <section className="relative py-24 px-6 md:px-12 bg-gradient-to-br from-[#f1f8f4] to-white overflow-hidden">

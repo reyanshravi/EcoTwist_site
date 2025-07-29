@@ -44,7 +44,7 @@ export default function page() {
     });
   };
   return (
-    <div className="min-h-screen bg-ivory py-8 mt-16">
+    <div className="min-h-screen bg-ivory py-8 ">
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-12">
