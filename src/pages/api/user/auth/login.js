@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import jwt from "jsonwebtoken";
-import User from "../../../../models/User";
+import User from "../../../../models/User.js";
 
 // Simple in-memory rate limiter (not suitable for production)
 const rateLimitMap = new Map();
