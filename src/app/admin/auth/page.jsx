@@ -77,14 +77,14 @@ export default function page() {
   return (
     <div className="min-h-screen flex items-center justify-center py-12 px-4 relative">
       {/* Background Image + Overlay */}
-      <div className="absolute inset-0 -z-10">
+      {/* <div className="absolute inset-0 -z-10">
         <img
           src="/eco-hero-image.jpg"
           alt="Eco Friendly Gifts"
           className="w-full h-full object-cover object-center"
         />
         <div className="absolute inset-0 bg-black/40" />
-      </div>
+      </div> */}
 
       <Card className="w-full max-w-md bg-white backdrop-blur-lg shadow-2xl rounded-xl border border-white/30">
         <CardHeader className="text-center space-y-2">

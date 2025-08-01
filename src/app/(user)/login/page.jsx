@@ -13,11 +13,22 @@ import {
 } from "@/components/ui/card";
 import Link from "next/link";
 import { Eye, EyeOff } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 export default function page() {
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
+  const [forgotOpen, setForgotOpen] = useState(false);
+  const [resetEmail, setResetEmail] = useState("");
+  const [resetMessage, setResetMessage] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -33,7 +44,7 @@ export default function page() {
     }
 
     try {
-      const res = await fetch("/api/user/auth/login", {
+      const res = await fetch("/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
@@ -50,6 +61,29 @@ export default function page() {
     } catch (err) {
       console.error("Login error:", err);
       setError("Something went wrong. Please try again.");
+    }
+  };
+
+  const handleForgotPassword = async (e) => {
+    e.preventDefault();
+    if (!resetEmail) {
+      setResetMessage("Please enter your email.");
+      return;
+    }
+    try {
+      const res = await fetch("api/user/auth/forgot-password", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: resetEmail }),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        setResetMessage(data.message);
+      } else {
+        setResetMessage(data.error || "Failed to send reset link.");
+      }
+    } catch (err) {
+      setResetMessage("An error occurred. Please try again.");
     }
   };
 
@@ -127,12 +161,64 @@ export default function page() {
           </p>
           <Button
             variant="link"
+            onClick={() => setForgotOpen(true)}
             className="text-sm text-teal-600 hover:underline"
           >
             Forgot Password?
           </Button>
         </CardFooter>
       </Card>
+
+      {/* Forgot Password Modal */}
+      <Dialog open={forgotOpen} onOpenChange={setForgotOpen}>
+        <DialogContent className="sm:max-w-[425px]">
+          <DialogHeader>
+            <DialogTitle className="text-2xl font-bold text-gray-800">
+              Reset Password
+            </DialogTitle>
+            <DialogDescription className="text-gray-600">
+              Enter your email to receive a password reset link.
+            </DialogDescription>
+          </DialogHeader>
+          <form onSubmit={handleForgotPassword} className="space-y-4">
+            <div className="space-y-2">
+              <label
+                htmlFor="reset-email"
+                className="text-sm font-medium text-gray-700"
+              >
+                Email
+              </label>
+              <Input
+                id="reset-email"
+                type="email"
+                placeholder="Enter your email"
+                value={resetEmail}
+                onChange={(e) => setResetEmail(e.target.value)}
+                className="w-full border-teal-200 focus:border-teal-400 focus:ring-teal-400"
+              />
+            </div>
+            {resetMessage && (
+              <p
+                className={
+                  resetMessage.includes("error")
+                    ? "text-sm text-red-500"
+                    : "text-sm text-green-600"
+                }
+              >
+                {resetMessage}
+              </p>
+            )}
+            <DialogFooter>
+              <Button
+                type="submit"
+                className="bg-teal-500 text-white hover:bg-teal-600 transition-colors duration-300"
+              >
+                Send Reset Link
+              </Button>
+            </DialogFooter>
+          </form>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

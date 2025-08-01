@@ -113,7 +113,7 @@ export default function page() {
               </div>
             </div>
 
-            <div className="bg-green-800/45 text-black rounded-xl p-6 ">
+            <div className="bg-gradient-to-br from-forest via-green-800 to-forest-700 text-white rounded-xl p-6 ">
               <h3 className="font-heading text-xl font-semibold mb-4">
                 Quick Response Guarantee
               </h3>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -25,6 +25,45 @@ export default function SignupPage() {
   const [otp, setOtp] = useState("");
   const [userId, setUserId] = useState(null);
   const [error, setError] = useState("");
+  const [resendLoading, setResendLoading] = useState(false);
+  const [resendCooldown, setResendCooldown] = useState(0);
+
+  const handleResendOtp = async () => {
+    if (resendCooldown > 0) return;
+
+    setResendLoading(true);
+    setError("");
+
+    try {
+      const res = await fetch("/api/user/auth/resendOtp", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: formData.email }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        setError(data.error || "Failed to resend OTP.");
+      } else {
+        setResendCooldown(60); 
+      }
+    } catch (err) {
+      setError("Failed to resend OTP. Try again.");
+    } finally {
+      setResendLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (resendCooldown <= 0) return;
+
+    const timer = setInterval(() => {
+      setResendCooldown((prev) => prev - 1);
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [resendCooldown]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -231,17 +270,30 @@ export default function SignupPage() {
           </form>
         </CardContent>
         <CardFooter className="flex flex-col items-center space-y-2">
-          <p className="text-sm text-gray-600">
-            {step === "register"
-              ? "Already have an account?"
-              : "Didn’t receive OTP? "}
-            <Link
-              href={step === "register" ? "/login" : "/signup"}
-              className="text-teal-600 hover:underline"
-            >
-              {step === "register" ? "Log In" : "Resend OTP"}
-            </Link>
-          </p>
+          {step === "register" ? (
+            <p className="text-sm text-gray-600">
+              Already have an account?{" "}
+              <Link href="/login" className="text-teal-600 hover:underline">
+                Log In
+              </Link>
+            </p>
+          ) : (
+            <div className="text-sm text-gray-600 flex flex-col items-center">
+              <p>Didn't receive the OTP?</p>
+              <Button
+                onClick={handleResendOtp}
+                variant="link"
+                className="text-teal-600"
+                disabled={resendLoading || resendCooldown > 0}
+              >
+                {resendCooldown > 0
+                  ? `Resend in ${resendCooldown}s`
+                  : resendLoading
+                  ? "Resending..."
+                  : "Resend OTP"}
+              </Button>
+            </div>
+          )}
         </CardFooter>
       </Card>
     </div>

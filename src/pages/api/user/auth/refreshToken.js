@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import User from "@/models/User";
+import User from "../../../../models/User";
 import mongoose from "mongoose";
 import jwt from "jsonwebtoken";
 

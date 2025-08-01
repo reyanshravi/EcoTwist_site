@@ -33,7 +33,7 @@ async function seedAdmin() {
         email: ADMIN_EMAIL,
         password: hashedPassword,
         role: 'admin',
-        mfaEnabled: false,
+        
       });
 
       await adminUser.save();
