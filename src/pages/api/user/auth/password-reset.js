@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
-import User from "../../../../models/User.js";
+import User from "@/models/User.js";
 
 const connectDB = async () => {
   if (mongoose.connection.readyState === 0) {
